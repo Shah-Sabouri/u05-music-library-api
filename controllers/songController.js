@@ -55,3 +55,11 @@ const deleteSong = (req, res) => {
     songs.splice(songIndex, 1);
     res.json({ message: "Song deleted successfully" });
 };
+
+module.exports = {
+    getAllSongs,
+    getSongById,
+    createSong,
+    updateSong,
+    deleteSong,
+};
