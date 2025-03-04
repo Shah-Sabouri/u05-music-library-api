@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
     res.send("User API is live!");
 });
 
-app.use("/songs", songRouter)
+app.use("/songs", songRouter);
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`);

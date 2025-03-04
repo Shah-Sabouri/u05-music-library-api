@@ -1,4 +1,4 @@
-let songs = require("../models/songModel").songs;
+let songs = require("../models/songModel");
 
 // HÄMTA BEFINTLIGA LÅTAR
 const getAllSongs = (req, res) => {
@@ -7,7 +7,7 @@ const getAllSongs = (req, res) => {
 
 // HÄMTA LÅT VIA ID
 const getSongById = (req, res) => {
-    const song = songs.find((s) => s.id === parseInt(req.params.id));
+    const song = songs.find((s) => s.id === req.params.id);
     if (!song) {
         res.status(404).json({ message: "Song not found" });
         return;
@@ -38,13 +38,13 @@ const updateSong = (req, res) => {
         return;
     }
 
-    songs[songIndex] = { ...users[songIndex], title, artist };
+    songs[songIndex] = { ...songs[songIndex], title, artist };
     res.json({ message: "Song updated successfully", song: songs[songIndex] });
 };
 
 // RADERA LÅT
 const deleteSong = (req, res) => {
-    const songId = parseInt(req.params.id);
+    const songId = req.params.id;
     const songIndex = songs.findIndex((song) => song.id === songId);
 
     if (songIndex === -1) {

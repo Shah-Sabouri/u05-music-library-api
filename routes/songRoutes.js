@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllSongs, getSongById, addSong, updateSong, deleteSong } = require("../controllers/songController")
+const { getAllSongs, getSongById, addSong, updateSong, deleteSong } = require("../controllers/songController");
 
 const songRouter = express.Router();
 
