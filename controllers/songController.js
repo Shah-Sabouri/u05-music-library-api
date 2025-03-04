@@ -10,6 +10,7 @@ const getSongById = (req, res) => {
 
 };
 
+/*
 // SKAPA NY LÅT
 const createSong = (req, res) => {
 
@@ -24,4 +25,4 @@ const updateSong = (req, res) => {
 const deleteSong = (req, res) => {
 
 };
-
+*/
