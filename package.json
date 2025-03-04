@@ -4,5 +4,24 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-  }
+  },
+  "name": "u05-music-library-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shah-Sabouri/u05-music-library-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shah-Sabouri/u05-music-library-api/issues"
+  },
+  "homepage": "https://github.com/Shah-Sabouri/u05-music-library-api#readme",
+  "description": ""
 }
