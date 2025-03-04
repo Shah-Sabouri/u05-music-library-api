@@ -3,10 +3,10 @@ const { getAllSongs, getSongById, addSong, updateSong, deleteSong } = require(".
 
 const songRouter = express.Router();
 
-songRouter.get("", getAllSongs);
-songRouter.get(":id", getSongById);
-songRouter.post("", addSong);
-songRouter.put(":id", updateSong);
-songRouter.delete(":id", deleteSong);
+songRouter.get("/", getAllSongs);
+songRouter.get("/:id", getSongById);
+songRouter.post("/", addSong);
+songRouter.put("/:id", updateSong);
+songRouter.delete("/:id", deleteSong);
 
 module.exports = songRouter;

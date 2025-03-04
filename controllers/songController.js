@@ -1,4 +1,4 @@
-let songs = require("../models/songModel");
+let songs = require("../models/songModel").songs;
 
 // HÄMTA BEFINTLIGA LÅTAR
 const getAllSongs = (req, res) => {
@@ -22,7 +22,7 @@ const addSong = (req, res) => {
         title: req.body.title,
         artist: req.body.artist,
     };
-    users.push(newSong);
+    songs.push(newSong);
     res.status(201).json(newSong);
 };
 
@@ -39,7 +39,7 @@ const updateSong = (req, res) => {
     }
 
     songs[songIndex] = { ...users[songIndex], title, artist };
-    res.json({ message: "Song updated successfully", user: users[userIndex] });
+    res.json({ message: "Song updated successfully", song: songs[songIndex] });
 };
 
 // RADERA LÅT
