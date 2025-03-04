@@ -15,8 +15,8 @@ const getSongById = (req, res) => {
     res.json(song);
 };
 
-// SKAPA NY LÅT
-const createSong = (req, res) => {
+// LÄGG TILL NY LÅT
+const addSong = (req, res) => {
     const newSong = {
         id: songs.length + 1,
         title: req.body.title,
@@ -59,7 +59,7 @@ const deleteSong = (req, res) => {
 module.exports = {
     getAllSongs,
     getSongById,
-    createSong,
+    addSong,
     updateSong,
     deleteSong,
 };

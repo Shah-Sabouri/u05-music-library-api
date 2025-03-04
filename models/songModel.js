@@ -4,4 +4,4 @@ const songs = [
     { id: "3", title: "More Bounce To the Ounce", artist: "Zapp & Roger" },
 ];
 
-export default songs;
+module.exports = songs;
