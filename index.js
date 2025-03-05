@@ -1,17 +1,20 @@
+require('dotenv').config();
 const express = require("express");
-const songRouter = require("./routes/songRoutes");
+const connectDB = require("./database/db");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+console.log("MongoDB URI:", process.env.MONGODB_URI);  // Kontrollerar URI:n
+
+connectDB(); // Anslutning till MongoDB
 
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("User API is live!");
+    res.send("Music API is live!");
 });
 
-app.use("/songs", songRouter);
-
 app.listen(PORT, () => {
-    console.log(`Example app listening at http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
