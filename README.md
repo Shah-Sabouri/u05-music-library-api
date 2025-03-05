@@ -17,7 +17,7 @@ Ett REST API för att hantera en musikbibliotek med CRUD-funktionalitet byggt me
     ```sh
     npm install 
 
-3. Skapa en .env-fil och lägg till:
+3. Skapa en `.env`-fil och lägg till:
     ```ini
     MONGO_URI= (kommer snart)
 
