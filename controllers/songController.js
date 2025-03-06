@@ -1,59 +1,86 @@
-let songs = require("../models/songModel");
+const Song = require("../models/songModel");
 
 // HÄMTA BEFINTLIGA LÅTAR
-const getAllSongs = (req, res) => {
-    res.status(200).json(songs);
+const getAllSongs = async (req, res) => {
+    try {
+        const songs = await Song.find(); // Hämtar alla låtar från databasen
+        res.status(200).json(songs);
+
+    } catch (error) {
+        res.status(500).json( {message: "Server Error"} );
+    }
 };
 
 // HÄMTA LÅT VIA ID
-const getSongById = (req, res) => {
-    const song = songs.find((s) => s.id === req.params.id);
-    if (!song) {
-        res.status(404).json({ message: "Song not found" });
-        return;
+const getSongById = async (req, res) => {
+    try {
+        const song = await Song.findById(req.params.id);
+
+        if (!song) {
+            return res.status(404).json({ message: "Song not found" });
+        }
+
+        res.json(song);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error", error: error.message });
     }
-    res.json(song);
 };
 
+
 // LÄGG TILL NY LÅT
-const addSong = (req, res) => {
-    const newSong = {
-        id: songs.length + 1,
-        title: req.body.title,
-        artist: req.body.artist,
-    };
-    songs.push(newSong);
-    res.status(201).json(newSong);
+const addSong = async (req, res) => {
+    try {
+        const { title, artist, genre, rating } = req.body;
+
+        const newSong = new Song ({
+            title,
+            artist,
+            genre,
+            rating
+        });
+
+        const savedSong = await newSong.save(); // Sparar låten i databasen
+        res.status(201).json(savedSong); // Skickar tillbaks sparad låt som svar
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
+    }
 };
 
 // UPPDATERA LÅT
-const updateSong = (req, res) => {
-    const songId = parseInt(req.params.id);
-    const { title, artist } = req.body;
+const updateSong = async (req, res) => {
+    try {
+        const { title, artist, genre, rating } = req.body;
 
-    const songIndex = songs.findIndex((song) => song.id === songId);
+        const updatedSong = await Song.findByIdAndUpdate(
+            req.params.id,
+            { title, artist, genre, rating },
+            { new: true } // Returnerar uppdaterad låt
+        );
 
-    if (songIndex === -1) {
-        res.status(404).json({ message: "Song not found" });
-        return;
+        if (!updatedSong) {
+            return res.status(404).json({ message: "Song not found" });
+        }
+
+        res.json(updatedSong); // Skickar tillbaka uppdaterad låt
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
     }
-
-    songs[songIndex] = { ...songs[songIndex], title, artist };
-    res.json({ message: "Song updated successfully", song: songs[songIndex] });
 };
 
 // RADERA LÅT
-const deleteSong = (req, res) => {
-    const songId = req.params.id;
-    const songIndex = songs.findIndex((song) => song.id === songId);
+const deleteSong = async (req, res) => {
+    try {
+        const deletedSong = await Song.findByIdAndDelete(req.params.id); // Raderar låt från databas
 
-    if (songIndex === -1) {
-        res.status(404).json({ message: "Song not found" });
-        return;
+        if (!deletedSong) {
+            return res.status(404).json({ message: "Song not found" });
+        }
+
+        res.json({ message: "Song successfully deleted" }); // Bekräftar att låten tagits bort
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
     }
-
-    songs.splice(songIndex, 1);
-    res.json({ message: "Song deleted successfully" });
 };
 
 module.exports = {

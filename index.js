@@ -11,6 +11,9 @@ connectDB(); // Anslutning till MongoDB
 
 app.use(express.json());
 
+const songRouter = require("./routes/songRoutes"); // Importera dina routes
+app.use("/api/songs", songRouter);
+
 app.get("/", (req, res) => {
     res.send("Music API is live!");
 });
