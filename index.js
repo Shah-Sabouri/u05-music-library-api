@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require("express");
 const connectDB = require("./database/db");
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,6 +11,7 @@ console.log("MongoDB URI:", process.env.MONGODB_URI);  // Kontrollerar URI:n
 connectDB(); // Anslutning till MongoDB
 
 app.use(express.json());
+app.use(cors());
 
 const songRouter = require("./routes/songRoutes"); // Importera dina routes
 app.use("/api/songs", songRouter);
