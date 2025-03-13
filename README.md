@@ -19,11 +19,11 @@ Ett REST API för att hantera en musikbibliotek med CRUD-funktionalitet byggt me
 
 3. Skapa en `.env`-fil och lägg till:
     ```ini
-    MONGO_URI= (kommer snart)
+    MONGO_URI=your_mongodb_connection_string
 
 4. Starta servern:
     ```sh
-    npm start
+    npm run dev
 
 ## 🛣️ API Endpoints (just nu med dummydata)
 
@@ -35,8 +35,37 @@ Ett REST API för att hantera en musikbibliotek med CRUD-funktionalitet byggt me
 | PUT    | `/songs/:id` | Uppdatera en låt       |
 | DELETE | `/songs/:id` | Ta bort en låt         |
 
-## 📝 Kommande uppdateringar
+## 🛠️ cURL-exempel för API-anrop
 
-- Koppling till MongoDB
-- Deployment till en molntjänst
-- cURL-exempel för API-anrop
+### 📌 Hämta alla låtar
+```sh
+curl -X GET http://localhost:3000/api/songs
+```
+### 📌 Hämta en låt via ID
+```sh
+curl -X GET http://localhost:3000/api/songs/{id}
+```
+### 📌 Skapa en ny låt
+```sh
+curl -X POST http://localhost:3000/api/songs \
+     -H "Content-Type: application/json" \
+     -d '{"title": "I Want You", "artist": "Marvin Gaye", "genre": "R&B", "rating": 5}'
+```
+### 📌 Uppdatera en låt
+```sh
+curl -X PUT http://localhost:3000/api/songs/{id} \
+     -H "Content-Type: application/json" \
+     -d '{"title": "New Title", "artist": "New Artist", "genre": "New Genre", "rating": 4}'
+```
+### 📌 Ta bort en låt
+```sh
+curl -X DELETE http://localhost:3000/api/songs/{id}
+```
+
+## 🚀 Deployment
+- API:et ska snart deployas till en molntjänst
+
+## 📝 Kommande uppdateringar
+- Implementering av fler funktioner
+- Utökad dokumentation och autentisering
+- Deployment och testning i produktion
