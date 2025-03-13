@@ -25,7 +25,7 @@ Ett REST API för att hantera en musikbibliotek med CRUD-funktionalitet byggt me
     ```sh
     npm run dev
 
-## 🛣️ API Endpoints (just nu med dummydata)
+## 🛣️ API Endpoints
 
 | Metod  | Endpoint      | Beskrivning            |
 |--------|-------------|------------------------|
@@ -63,7 +63,8 @@ curl -X DELETE http://localhost:3000/api/songs/{id}
 ```
 
 ## 🚀 Deployment
-- API:et ska snart deployas till en molntjänst
+```sh
+https://u05-music-library-api.onrender.com```
 
 ## 📝 Kommande uppdateringar
 - Implementering av fler funktioner
