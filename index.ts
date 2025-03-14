@@ -1,25 +1,20 @@
-require('dotenv').config();
-const express = require("express");
-const connectDB = require("./database/db");
-const cors = require('cors');
+import express, { Application } from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import songRoutes from "./routes/songRoutes";
 
-const app = express();
+dotenv.config();
+
+const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-console.log("MongoDB URI:", process.env.MONGODB_URI);  // Kontrollerar URI:n
-
-connectDB(); // Anslutning till MongoDB
-
 app.use(express.json());
-app.use(cors());
+app.use("/api/songs", songRoutes);
 
-const songRouter = require("./routes/songRoutes"); // Importera dina routes
-app.use("/api/songs", songRouter);
-
-app.get("/", (req, res) => {
-    res.send("Music API is live!");
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+mongoose
+    .connect(process.env.MONGO_URI as string)
+    .then(() => {
+        console.log("Connected to MongoDB");
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    })
+    .catch((error) => console.log("Database connection error:", error));
