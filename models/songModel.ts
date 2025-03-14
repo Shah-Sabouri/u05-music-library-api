@@ -1,21 +1,17 @@
-/* const songs = [
-    { id: "1", title: "Picture Me Rollin", artist: "2pac" },
-    { id: "2", title: "Time to Get it Together", artist: "Marvin Gaye" },
-    { id: "3", title: "More Bounce To the Ounce", artist: "Zapp & Roger" },
-];
+import mongoose, { Schema, Document } from "mongoose";
 
-module.exports = songs; */
+export interface ISong extends Document {
+    title: string;
+    artist: string;
+    genre: string;
+    rating: number;
+}
 
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
-const songSchema = new Schema({
+const SongSchema: Schema = new Schema({
     title: { type: String, required: true },
     artist: { type: String, required: true },
-    genre: { type: String },
-    rating: { type: Number, min: 1, max: 5 }
+    genre: { type: String, required: true },
+    rating: { type: Number, required: true, min: 1, max: 5 },
 });
 
-const Song = mongoose.model("Song", songSchema, "songs");
-
-module.exports = Song;
+export default mongoose.model<ISong>("Song", SongSchema);
