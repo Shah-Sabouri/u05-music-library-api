@@ -8,6 +8,11 @@ Ett REST API för att hantera en musikbibliotek med CRUD-funktionalitet byggt me
 - Koppling till en MongoDB-databas (kommer snart)
 - Felhantering och validering
 
+## 🚀 Deployment
+```sh
+https://u05-music-library-api.onrender.com
+```
+
 ## 🛠️ Installation
 1. Klona detta repo:
     ```sh
@@ -18,7 +23,7 @@ Ett REST API för att hantera en musikbibliotek med CRUD-funktionalitet byggt me
     npm install 
 
 3. Skapa en `.env`-fil och lägg till:
-    ```ini
+    ```sh
     MONGO_URI=your_mongodb_connection_string
 
 4. Starta servern:
@@ -62,11 +67,34 @@ curl -X PUT http://localhost:3000/api/songs/{id} \
 curl -X DELETE http://localhost:3000/api/songs/{id}
 ```
 
-## 🚀 Deployment
-```sh
-https://u05-music-library-api.onrender.com```
+## 🛠️ Felhantering & Statuskoder
 
-## 📝 Kommande uppdateringar
-- Implementering av fler funktioner
-- Utökad dokumentation och autentisering
-- Deployment och testning i produktion
+| Statuskod | Scenario | Felmeddelande |
+|-----------|---------|---------------|
+| **400** | Felaktigt eller ofullständigt request | `"Invalid song ID format"` eller `"All fields are required"` |
+| **404** | Låten finns inte i databasen | `"Song not found"` |
+| **500** | Serverfel (t.ex. problem med databasen) | `"Server Error"` |
+
+### 📌 Exempel på felmeddelanden
+#### ❌ Försök hämta en låt med ogiltigt ID
+```sh
+curl -X GET http://localhost:3000/api/songs/12345
+```
+#### 📤 Svar:
+```sh
+{
+  "message": "Invalid song ID format"
+}
+```
+#### ❌ Försök skapa en låt utan alla obligatoriska fält
+```sh
+curl -X POST http://localhost:3000/api/songs \
+     -H "Content-Type: application/json" \
+     -d '{"title": "Song without artist"}'
+```
+#### 📤 Svar:
+```sh
+{
+  "message": "All fields are required: title, artist, genre, rating"
+}
+```
