@@ -1,101 +1,79 @@
-const mongoose = require("mongoose");
-const Song = require("../models/songModel");
+import { Request, Response } from "express";
+import Song, { ISong } from "../models/songModel";
 
 // HÄMTA BEFINTLIGA LÅTAR
-const getAllSongs = async (req, res) => {
+export const getAllSongs = async (req: Request, res: Response): Promise<void> => {
     try {
-        const songs = await Song.find(); 
+        const songs: ISong[] = await Song.find();
         res.status(200).json(songs);
     } catch (error) {
-        res.status(500).json({ message: "Server Error", error: error.message });
+        res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
 };
 
 // HÄMTA LÅT VIA ID
-const getSongById = async (req, res) => {
+export const getSongById = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { id } = req.params;
-
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ message: "Invalid song ID format" });
-        }
-
-        const song = await Song.findById(id);
+        const song: ISong | null = await Song.findById(req.params.id);
         if (!song) {
-            return res.status(404).json({ message: "Song not found" });
+            res.status(404).json({ message: "Song not found" });
+            return;
         }
-
         res.json(song);
     } catch (error) {
-        res.status(500).json({ message: "Server Error", error: error.message });
+        res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
 };
 
 // LÄGG TILL NY LÅT
-const addSong = async (req, res) => {
+export const addSong = async (req: Request, res: Response): Promise<void> => {
     try {
         const { title, artist, genre, rating } = req.body;
 
-        if (!title || !artist || !genre || rating == null) {
-            return res.status(400).json({ message: "All fields are required: title, artist, genre, rating" });
-        }
-
         const newSong = new Song({ title, artist, genre, rating });
-        const savedSong = await newSong.save();
+
+        const savedSong: ISong = await newSong.save();
         res.status(201).json(savedSong);
     } catch (error) {
-        res.status(500).json({ message: "Server Error", error: error.message });
+        res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
 };
 
 // UPPDATERA LÅT
-const updateSong = async (req, res) => {
+export const updateSong = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { id } = req.params;
         const { title, artist, genre, rating } = req.body;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ message: "Invalid song ID format" });
-        }
-
-        if (!title && !artist && !genre && rating == null) {
-            return res.status(400).json({ message: "At least one field must be provided for update" });
-        }
-
-        const updatedSong = await Song.findByIdAndUpdate(
-            id,
+        const updatedSong: ISong | null = await Song.findByIdAndUpdate(
+            req.params.id,
             { title, artist, genre, rating },
             { new: true }
         );
 
         if (!updatedSong) {
-            return res.status(404).json({ message: "Song not found" });
+            res.status(404).json({ message: "Song not found" });
+            return;
         }
 
         res.json(updatedSong);
     } catch (error) {
-        res.status(500).json({ message: "Server Error", error: error.message });
+        res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
 };
 
 // RADERA LÅT
-const deleteSong = async (req, res) => {
+export const deleteSong = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { id } = req.params;
-
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ message: "Invalid song ID format" });
-        }
-
-        const deletedSong = await Song.findByIdAndDelete(id);
+        const deletedSong: ISong | null = await Song.findByIdAndDelete(req.params.id);
 
         if (!deletedSong) {
-            return res.status(404).json({ message: "Song not found" });
+            res.status(404).json({ message: "Song not found" });
+            return;
         }
 
         res.json({ message: "Song successfully deleted" });
     } catch (error) {
-        res.status(500).json({ message: "Server Error", error: error.message });
+        res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
 };
 
