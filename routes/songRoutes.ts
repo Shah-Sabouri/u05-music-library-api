@@ -1,5 +1,5 @@
-const express = require("express");
-const { getAllSongs, getSongById, addSong, updateSong, deleteSong } = require("../controllers/songController");
+import express from "express";
+import { getAllSongs, getSongById, addSong, updateSong, deleteSong } from "../controllers/songController";
 
 const songRouter = express.Router();
 
@@ -9,4 +9,4 @@ songRouter.post("/", addSong);
 songRouter.put("/:id", updateSong);
 songRouter.delete("/:id", deleteSong);
 
-module.exports = songRouter;
+export default songRouter;
