@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import songRoutes from "./routes/songRoutes";
@@ -7,6 +7,10 @@ dotenv.config();
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
+
+app.get("/", (req: Request, res: Response): void => {
+    res.send("Music Library API is live!");
+});
 
 app.use(express.json());
 app.use("/api/songs", songRoutes);
