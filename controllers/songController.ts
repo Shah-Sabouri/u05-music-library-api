@@ -4,7 +4,15 @@ import Song, { ISong } from "../models/songModel";
 // HÄMTA BEFINTLIGA LÅTAR
 export const getAllSongs = async (req: Request, res: Response): Promise<void> => {
     try {
-        const songs: ISong[] = await Song.find();
+        
+        const { genre } = req.query;
+
+        let query = {};
+        if (genre) {
+            query = { genre: genre.toString() }; // Filtrerar baserat på genre
+        }
+
+        const songs: ISong[] = await Song.find(query);
         res.status(200).json(songs);
     } catch (error) {
         res.status(500).json({ message: "Server Error", error: (error as Error).message });
