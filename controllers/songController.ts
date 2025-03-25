@@ -5,19 +5,33 @@ import Song, { ISong } from "../models/songModel";
 export const getAllSongs = async (req: Request, res: Response): Promise<void> => {
     try {
         
-        const { genre } = req.query;
+        const { artist, genre, rating } = req.query;
 
-        let query = {};
-        if (genre) {
-            query = { genre: genre.toString() }; // Filtrerar baserat på genre
+        let query: { artist?: RegExp, genre?: string, rating?: number } = {};
+
+        // Filtrerar baserat på artist (case-insensitive match)
+        if (artist) {
+            query.artist = new RegExp(artist.toString(), 'i');
         }
 
+        // Filtrerar baserat på genre
+        if (genre) {
+            query.genre = genre.toString();
+        }
+
+        // Filtrerar baserat på rating (konvertera till integer)
+        if (rating) {
+            query.rating = parseInt(rating.toString(), 10);
+        }
+
+        // Hämtar låtar baserat på den byggda queryn
         const songs: ISong[] = await Song.find(query);
         res.status(200).json(songs);
     } catch (error) {
         res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
 };
+
 
 // HÄMTA LÅT VIA ID
 export const getSongById = async (req: Request, res: Response): Promise<void> => {
