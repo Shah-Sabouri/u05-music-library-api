@@ -4,34 +4,31 @@ import Song, { ISong } from "../models/songModel";
 // HÄMTA BEFINTLIGA LÅTAR
 export const getAllSongs = async (req: Request, res: Response): Promise<void> => {
     try {
-        
-        const { artist, genre, rating } = req.query;
+        const { artist } = req.query;
 
-        let query: { artist?: RegExp, genre?: string, rating?: number } = {};
+        // Skapar query för att bara filtrera på artist
+        let query: { artist?: RegExp } = {};
 
-        // Filtrerar baserat på artist (case-insensitive match)
         if (artist) {
-            query.artist = new RegExp(artist.toString(), 'i');
+            query.artist = new RegExp(artist.toString(), 'i'); // Case-insensitive match för artist
         }
 
-        // Filtrerar baserat på genre
-        if (genre) {
-            query.genre = genre.toString();
+        // Sortering
+        const { sort } = req.query; // Exempelvis "rating"
+        let sortOrder: any = {};
+
+        if (sort) {
+            sortOrder = { rating: sort === 'desc' ? -1 : 1 }; // Om sort är "desc", använd fallande ordning, annars stigande
         }
 
-        // Filtrerar baserat på rating (konvertera till integer)
-        if (rating) {
-            query.rating = parseInt(rating.toString(), 10);
-        }
+        // Hämta alla låtar baserat på artist-filter och sortering
+        const songs: ISong[] = await Song.find(query).sort(sortOrder);
 
-        // Hämtar låtar baserat på den byggda queryn
-        const songs: ISong[] = await Song.find(query);
         res.status(200).json(songs);
     } catch (error) {
         res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
 };
-
 
 // HÄMTA LÅT VIA ID
 export const getSongById = async (req: Request, res: Response): Promise<void> => {
