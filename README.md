@@ -43,8 +43,13 @@ https://u05-music-library-api.onrender.com
 ## 🛠️ cURL-exempel för API-anrop
 
 ### 📌 Hämta alla låtar
+#### Lokalt:
 ```sh
 curl -X GET http://localhost:3000/api/songs
+```
+#### Globalt:
+```sh
+curl "https://u05-music-library-api.onrender.com/api/songs"
 ```
 ### 📌 Hämta en låt via ID
 ```sh
@@ -65,6 +70,18 @@ curl -X PUT http://localhost:3000/api/songs/{id} \
 ### 📌 Ta bort en låt
 ```sh
 curl -X DELETE http://localhost:3000/api/songs/{id}
+```
+### 📌 Filtrera låtar efter artist
+```sh
+curl -X GET "https://u05-music-library-api.onrender.com/api/songs?artist=2pac"
+```
+### 📌 Filtrera och sortera låtar efter artist och rating:
+```sh
+curl -X GET "https://u05-music-library-api.onrender.com/api/songs?artist=2pac&sort=desc"
+```
+### 📌 Sortera låtar efter rating i stigande ordning:
+```sh
+curl -X GET "https://u05-music-library-api.onrender.com/api/songs?artist=2pac&sort=asc"
 ```
 
 ## 🛠️ Felhantering & Statuskoder
