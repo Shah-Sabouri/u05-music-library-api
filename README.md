@@ -44,11 +44,11 @@ https://u05-music-library-api.onrender.com
 
 ### 📌 Hämta alla låtar
 ```sh
-curl -X GET http://localhost:3000/api/songs
+curl -X GET "http://localhost:3000/api/songs"
 ```
 ### 📌 Hämta en låt via ID
 ```sh
-curl -X GET http://localhost:3000/api/songs/{id}
+curl -X GET "http://localhost:3000/api/songs/{id}"
 ```
 ### 📌 Skapa en ny låt
 ```sh
@@ -90,7 +90,7 @@ curl -X GET "http://localhost:3000/api/songs?artist={artist}&sort=asc"
 ### 📌 Exempel på felmeddelanden
 #### ❌ Försök hämta en låt med ogiltigt ID
 ```sh
-curl -X GET http://localhost:3000/api/songs/12345
+curl -X GET "http://localhost:3000/api/songs/12345"
 ```
 #### 📤 Svar:
 ```sh
@@ -108,5 +108,16 @@ curl -X POST http://localhost:3000/api/songs \
 ```sh
 {
   "message": "All fields are required: title, artist, genre, rating"
+}
+```
+
+#### ❌ Försök hitta artist och dennes låtar som inte finns
+```sh
+curl -X POST "http://localhost:3000/api/songs?artist=xyz"
+```
+#### 📤 Svar:
+```sh
+{
+  "message": "No songs found for artist: xyz"
 }
 ```
