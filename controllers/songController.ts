@@ -5,31 +5,35 @@ import mongoose from "mongoose";
 // HÄMTA BEFINTLIGA LÅTAR
 export const getAllSongs = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { artist } = req.query;
+        const { artist, sort } = req.query;
 
-        // Skapar query för att bara filtrera på artist
         let query: { artist?: RegExp } = {};
 
         if (artist) {
-            query.artist = new RegExp(artist.toString(), 'i'); // Case-insensitive match för artist
+            query.artist = new RegExp(artist.toString(), 'i'); 
         }
 
-        // Sortering
-        const { sort } = req.query; // Exempelvis "rating"
         let sortOrder: any = {};
-
         if (sort) {
-            sortOrder = { rating: sort === 'desc' ? -1 : 1 }; // Om sort är "desc", använd fallande ordning, annars stigande
+            sortOrder = { rating: sort === 'desc' ? -1 : 1 }; 
         }
 
-        // Hämta alla låtar baserat på artist-filter och sortering
         const songs: ISong[] = await Song.find(query).sort(sortOrder);
+
+        // Lägg till en extra kontroll om inga låtar hittas
+        if (!songs || songs.length === 0) {
+            console.log({ message: `No songs found for artist: ${artist}`});
+            res.status(404).json({ message: `No songs found for artist: ${artist}`});
+            return;
+
+        }
 
         res.status(200).json(songs);
     } catch (error) {
         res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
 };
+
 
 // HÄMTA LÅT VIA ID
 export const getSongById = async (req: Request, res: Response): Promise<void> => {
