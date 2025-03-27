@@ -113,7 +113,7 @@ curl -X POST http://localhost:3000/api/songs \
 
 #### ❌ Försök hitta artist och dennes låtar som inte finns
 ```sh
-curl -X POST "http://localhost:3000/api/songs?artist=xyz"
+curl -X GET "http://localhost:3000/api/songs?artist=xyz"
 ```
 #### 📤 Svar:
 ```sh
