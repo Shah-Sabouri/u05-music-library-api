@@ -65,7 +65,7 @@ curl -X PUT https://u05-music-library-api.onrender.com/api/songs/{id} \
 ```
 ### 📌 Ta bort en låt
 ```sh
-curl -X DELETE https://u05-music-library-api.onrender.com/api/songs{id}
+curl -X DELETE https://u05-music-library-api.onrender.com/api/songs/{id}
 ```
 ### 📌 Filtrera låtar efter artist
 ```sh
