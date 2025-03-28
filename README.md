@@ -45,39 +45,39 @@ https://u05-music-library-api.onrender.com
 
 ### 📌 Hämta alla låtar
 ```sh
-curl -X GET "http://localhost:3000/api/songs"
+curl -X GET https://u05-music-library-api.onrender.com/api/songs
 ```
 ### 📌 Hämta en låt via ID
 ```sh
-curl -X GET "http://localhost:3000/api/songs/{id}"
+curl -X GET https://u05-music-library-api.onrender.com/api/songs/{id}
 ```
 ### 📌 Skapa en ny låt
 ```sh
-curl -X POST http://localhost:3000/api/songs \
+curl -X POST https://u05-music-library-api.onrender.com/api/songs \
      -H "Content-Type: application/json" \
-     -d '{"title": "I Want You", "artist": "Marvin Gaye", "genre": "R&B", "rating": 5}'
+     -d '{"title": "Representin 93", "artist": "2pac", "genre": "Hiphop", "rating": 5}'
 ```
 ### 📌 Uppdatera en låt
 ```sh
-curl -X PUT http://localhost:3000/api/songs/{id} \
+curl -X PUT https://u05-music-library-api.onrender.com/api/songs/{id} \
      -H "Content-Type: application/json" \
-     -d '{"title": "New Title", "artist": "New Artist", "genre": "New Genre", "rating": 4}'
+     -d '{"title": "Representin 93", "artist": "2pac", "genre": "Hiphop", "rating": 4}'
 ```
 ### 📌 Ta bort en låt
 ```sh
-curl -X DELETE http://localhost:3000/api/songs/{id}
+curl -X DELETE https://u05-music-library-api.onrender.com/api/songs{id}
 ```
 ### 📌 Filtrera låtar efter artist
 ```sh
-curl -X GET "http://localhost:3000/api/songs?artist={artist}"
+curl -X GET https://u05-music-library-api.onrender.com/api/songs?artist={artist}
 ```
 ### 📌 Filtrera och sortera låtar efter artist och rating:
 ```sh
-curl -X GET "http://localhost:3000/api/songs?artist={artist}&sort=desc"
+curl -X GET "https://u05-music-library-api.onrender.com/api/songs?artist={artist}&sort=desc"
 ```
 ### 📌 Sortera låtar efter rating i stigande ordning:
 ```sh
-curl -X GET "http://localhost:3000/api/songs?artist={artist}&sort=asc"
+curl -X GET "https://u05-music-library-api.onrender.com/api/songs?artist={artist}&sort=asc"
 ```
 
 ## 🛠️ Felhantering & Statuskoder
