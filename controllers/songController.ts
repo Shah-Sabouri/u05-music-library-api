@@ -123,14 +123,18 @@ export const deleteSong = async (req: Request, res: Response): Promise<void> => 
     }
 
     try {
-        const deletedSong: ISong | null = await Song.findByIdAndDelete(id);
+        // Hämta låten innan radering
+        const songToDelete: ISong | null = await Song.findById(id);
 
-        if (!deletedSong) {
+        if (!songToDelete) {
             res.status(404).json({ message: "Song not found" });
             return;
         }
 
-        res.json({ message: "Song successfully deleted" });
+        // Radera låten
+        await Song.findByIdAndDelete(id);
+
+        res.json({ message: `"${songToDelete.title}" was successfully deleted.` });
     } catch (error) {
         res.status(500).json({ message: "Server Error", error: (error as Error).message });
     }
