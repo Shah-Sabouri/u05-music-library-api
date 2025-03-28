@@ -1,11 +1,12 @@
 README.md
 # 🎵 Music Library API
 
-Ett REST API för att hantera en musikbibliotek med CRUD-funktionalitet byggt med **Node.js, Express och MongoDB**.
+Ett REST API för att hantera ett musikbibliotek med CRUD-funktionalitet byggt med **Node.js, Express och MongoDB**.
 
 ## 🚀 Funktionalitet
 - Skapa, läsa, uppdatera och radera låtar
-- Koppling till en MongoDB-databas (kommer snart)
+- Filtrera låtar efter artister, samt sortera låtarna efter deras rating (från högst till lägst och vice versa)
+- Koppling till en MongoDB-databas
 - Felhantering och validering
 
 ## 🚀 Deployment
@@ -81,7 +82,7 @@ curl -X GET "http://localhost:3000/api/songs?artist={artist}&sort=asc"
 
 ## 🛠️ Felhantering & Statuskoder
 
-| Statuskod | Scenario | Felmeddelande |
+| Statuskod | Scenario | Exempel på felmeddelande |
 |-----------|---------|---------------|
 | **400** | Felaktigt eller ofullständigt request | `"Invalid song ID format"` eller `"All fields are required"` |
 | **404** | Låten finns inte i databasen | `"Song not found"` |
