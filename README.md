@@ -69,7 +69,7 @@ curl -X DELETE https://u05-music-library-api.onrender.com/api/songs{id}
 ```
 ### 📌 Filtrera låtar efter artist
 ```sh
-curl -X GET https://u05-music-library-api.onrender.com/api/songs?artist={artist}
+curl -X GET "https://u05-music-library-api.onrender.com/api/songs?artist={artist}"
 ```
 ### 📌 Filtrera och sortera låtar efter artist och rating:
 ```sh
