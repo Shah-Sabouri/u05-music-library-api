@@ -8,9 +8,12 @@ dotenv.config();
 
 const app: Application = express();
 const PORT: number = parseInt(process.env.PORT || "3000", 10);
+const allowedOrigins = ['https://jovial-sunflower-f85d8e.netlify.app']
+
+app.use(express.json());
 
 app.use(cors({
-    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
 }));
@@ -19,7 +22,6 @@ app.get("/", (req: Request, res: Response): void => {
     res.send("Music Library API is live!");
 });
 
-app.use(express.json());
 app.use("/api/songs", songRoutes);
 
 mongoose
