@@ -8,7 +8,7 @@ dotenv.config();
 
 const app: Application = express();
 const PORT: number = parseInt(process.env.PORT || "3000", 10);
-const allowedOrigins = ['https://jovial-sunflower-f85d8e.netlify.app']
+const allowedOrigins = ['*']
 
 app.use(express.json());
 
